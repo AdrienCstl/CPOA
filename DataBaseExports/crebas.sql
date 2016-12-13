@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     10/12/2016 14:01:17                          */
+/* Created on:     12/12/2016 12:17:33                          */
 /*==============================================================*/
 
 
@@ -16,14 +16,8 @@ alter table "Concours"
 alter table "Equipe_du_film"
    drop constraint FK_EQUIPE_D_LOGE_HEBERGEM;
 
-alter table "Equipe_du_film"
-   drop constraint FK_EQUIPE_D_COMPOSE_VIP;
-
 alter table "Film"
    drop constraint FK_FILM_REALISE_EQUIPE_D;
-
-alter table "Jury"
-   drop constraint FK_JURY_APPARTIEN_VIP;
 
 alter table "Jury"
    drop constraint FK_JURY_DORS_HEBERGEM;
@@ -49,6 +43,12 @@ alter table "propose"
 alter table "propose"
    drop constraint FK_PROPOSE_PROPOSE_SERVICE;
 
+alter table "vip"
+   drop constraint FK_VIP_APPARTIEN_JURY;
+
+alter table "vip"
+   drop constraint FK_VIP_COMPOSE_EQUIPE_D;
+
 drop index COMPREND_FK2;
 
 drop index COMPREND_FK;
@@ -59,8 +59,6 @@ drop index JUGE_FK;
 
 drop table "Concours" cascade constraints;
 
-drop index COMPOSE_FK;
-
 drop index LOGE_FK;
 
 drop table "Equipe_du_film" cascade constraints;
@@ -70,8 +68,6 @@ drop index REALISE_FK;
 drop table "Film" cascade constraints;
 
 drop table "Hebergement" cascade constraints;
-
-drop index APPARTIENT_FK;
 
 drop index DORS_FK;
 
@@ -154,7 +150,6 @@ create index JUGE_FK on "Concours" (
 create table "Equipe_du_film" 
 (
    "IDFilm"             INTEGER              not null,
-   IDVIP                INTEGER,
    "IDHebergement"      INTEGER,
    constraint PK_EQUIPE_DU_FILM primary key ("IDFilm")
 );
@@ -167,13 +162,6 @@ create index LOGE_FK on "Equipe_du_film" (
 );
 
 /*==============================================================*/
-/* Index: COMPOSE_FK                                            */
-/*==============================================================*/
-create index COMPOSE_FK on "Equipe_du_film" (
-   IDVIP ASC
-);
-
-/*==============================================================*/
 /* Table: "Film"                                                */
 /*==============================================================*/
 create table "Film" 
@@ -181,7 +169,7 @@ create table "Film"
    "titre"              VARCHAR2(254),
    "duree"              INTEGER,
    "IDfilm"             INTEGER              not null,
-   "Equ_IDFilm"         INTEGER,
+   "Equ_IDFilm"         INTEGER              not null,
    "nb_de_projections"  INTEGER,
    constraint PK_FILM primary key ("IDfilm")
 );
@@ -202,6 +190,7 @@ create table "Hebergement"
    "nb_places_dispo"    INTEGER,
    "Nb_service"         INTEGER,
    "IDHebergement"      INTEGER              not null,
+   "nom"                VARCHAR2(254),
    constraint PK_HEBERGEMENT primary key ("IDHebergement")
 );
 
@@ -214,7 +203,6 @@ create table "Jury"
    "nb_personnes"       INTEGER,
    "IDJury"             INTEGER              not null,
    "IDHebergement"      INTEGER,
-   IDVIP                INTEGER,
    "contrainteNombreFilmMax" INTEGER,
    constraint PK_JURY primary key ("IDJury")
 );
@@ -224,13 +212,6 @@ create table "Jury"
 /*==============================================================*/
 create index DORS_FK on "Jury" (
    "IDHebergement" ASC
-);
-
-/*==============================================================*/
-/* Index: APPARTIENT_FK                                         */
-/*==============================================================*/
-create index APPARTIENT_FK on "Jury" (
-   IDVIP ASC
 );
 
 /*==============================================================*/
@@ -267,7 +248,7 @@ create index DEFINIT_FK on "Projection" (
 create table "Reservation" 
 (
    "IDReservation"      INTEGER              not null,
-   "IDHebergement"      INTEGER,
+   "IDHebergement"      INTEGER              not null,
    "nom"                VARCHAR2(254),
    "type"               VARCHAR2(254),
    "date"               DATE,
@@ -358,6 +339,8 @@ create table "vip"
 (
    "type"               VARCHAR2(254),
    IDVIP                INTEGER              not null,
+   "IDFilm"             INTEGER,
+   "IDJury"             INTEGER,
    "nationalite"        VARCHAR2(254),
    "nom"                VARCHAR2(254),
    "prenom"             VARCHAR2(254),
@@ -380,17 +363,9 @@ alter table "Equipe_du_film"
    add constraint FK_EQUIPE_D_LOGE_HEBERGEM foreign key ("IDHebergement")
       references "Hebergement" ("IDHebergement");
 
-alter table "Equipe_du_film"
-   add constraint FK_EQUIPE_D_COMPOSE_VIP foreign key (IDVIP)
-      references "vip" (IDVIP);
-
 alter table "Film"
    add constraint FK_FILM_REALISE_EQUIPE_D foreign key ("Equ_IDFilm")
       references "Equipe_du_film" ("IDFilm");
-
-alter table "Jury"
-   add constraint FK_JURY_APPARTIEN_VIP foreign key (IDVIP)
-      references "vip" (IDVIP);
 
 alter table "Jury"
    add constraint FK_JURY_DORS_HEBERGEM foreign key ("IDHebergement")
@@ -423,4 +398,12 @@ alter table "propose"
 alter table "propose"
    add constraint FK_PROPOSE_PROPOSE_SERVICE foreign key ("nom")
       references "Service" ("nom");
+
+alter table "vip"
+   add constraint FK_VIP_APPARTIEN_JURY foreign key ("IDJury")
+      references "Jury" ("IDJury");
+
+alter table "vip"
+   add constraint FK_VIP_COMPOSE_EQUIPE_D foreign key ("IDFilm")
+      references "Equipe_du_film" ("IDFilm");
 
