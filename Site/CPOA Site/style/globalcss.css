@@ -1,0 +1,69 @@
+@font-face    {font-family : 'SourceSansProRegular'; src : url('../fonts/SourceSansPro-Regular.ttf');}
+@font-face    {font-family : 'SourceSansProSemiBold'; src : url('../fonts/SourceSansPro-Semibold.ttf');}
+@font-face    {font-family : 'hvn'; src : url('../fonts/hvn.ttf');}
+
+
+
+html,body
+{
+	min-height: 100%;
+	min-width:0px;
+	margin:0;
+	padding:0;
+	font-family:SourceSansProRegular;
+	font-style: normal;
+	background: #232323  ;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+
+
+#warpper
+{
+
+	font-family:SourceSansProLight;
+	margin:0px;
+	padding: 0;
+	text-align:center;
+	min-height: 100%;
+	overflow: hidden;
+}
+
+
+
+
+/*quand taille reduite*/
+
+@media only screen and (max-width:1200px)
+{
+	#footer{font-size:1.15	vw;}
+
+
+}
+@media only screen and (max-width:950px)
+{
+
+}
+@media only screen and (max-width:900px)
+{
+
+
+}
+@media only screen and (max-width:800px)
+{
+
+}
+@media only screen and (max-width:550px)
+{
+
+}
+@media only screen and (max-width:500px)
+{
+
+
+}
+@media only screen and (max-width:400px)
+{
+
+}

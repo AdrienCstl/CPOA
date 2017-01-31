@@ -1,0 +1,70 @@
+
+
+#corpsAccueil
+{
+
+	margin-top:0px;
+	padding:50px 0px 10px 0px;
+	overflow:hidden;
+	color: #afafaf;
+
+}
+#corpsAccueil .btn{text-decoration:none;font-weight:bold; margin:70px;padding: 7px;border-radius: 5px; background: #353535;margin-top: 55px;cursor: pointer;}
+
+
+#tabListeHotels
+{
+
+	border-collapse: collapse;
+	border-radius: 7px;
+	box-shadow: 0px 0px 5px 1px grey;
+	margin: auto;
+	margin-top:50px;
+	font-size: 20px;
+	color:#afafaf;
+}
+#tabListeHotels th{
+	color:#c8a461;
+}
+#tabListeHotels td
+{
+		border: 1px solid #c8a461;
+		padding:5px;
+		padding-left: 20px;
+		padding-right: 20px;
+		min-width: 170px;
+}
+#tabListeHotels .nh
+{
+	text-align: left;
+	width: 300px;
+}
+a {color:white;text-decoration: none}
+
+#affect,#ajout{transition: ;display:none;background: #212121;margin:auto; margin-top: 25px; width: 30%; border-radius:5px;margin-bottom: 20px;	}
+
+
+form{
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+  margin-top: 30px;
+  text-align: left;
+}
+label{
+  font-weight: bold;
+}
+
+select, input{
+  display: block;
+	margin-bottom: 5px;
+  margin-left: : 0;
+  width: 55%;
+  background: #4f4f4f;
+  border: 1px solid #c8a461;
+  border-radius: 5px;
+  color: white;
+}
+button {margin-top: 10px;}
+
+#boite{background: ; width: 70%;margin: auto;position: relative;overflow: hidden;margin-top: 25px;min-height: 50px;padding: 10px}
