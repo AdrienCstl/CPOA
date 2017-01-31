@@ -16,6 +16,8 @@ public class Hebergement {
    private int Nb_service;
    /** @pdOid 3c7e9d6b-c0b6-4287-8ee1-65020a886aa5 */
    private int IDHebergement;
+   /** @pdOid c0ed4e90-3dfd-4e67-8c43-a3032c11cbaa */
+   private String nom;
    
    /** @pdOid 33e3de81-2f25-44bc-b633-6c5496a2688e */
    public void getCaracteristiques() {
